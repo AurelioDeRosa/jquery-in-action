@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Function Context Example</title>
+   </head>
+   <body>
+      <script>
+         var obj1 = { handle: 'obj1' };
+         var obj2 = { handle: 'obj2' };
+         var obj3 = { handle: 'obj3' };
+         var value = 'test';
+         window.handle = 'window';
+
+         function whoAmI(param) {
+            return this.handle + ' ' + param;
+         }
+
+         obj1.identifyMe = whoAmI;
+
+         alert(whoAmI(value));
+         alert(obj1.identifyMe(value));
+         alert(whoAmI.call(obj2, value));
+         alert(whoAmI.apply(obj3, [value]));
+      </script>
+   </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Getting and setting data Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <input id="level1" type="text" value="I'm a text!" data-custom="foo" />
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         console.log($('#level1').data('custom'));
+         console.log($('#level1').attr('data-custom'));
+
+         $('#level1').attr('data-custom', 'new value');
+
+         console.log($('#level1').data('custom'));
+         console.log($('#level1').attr('data-custom'));
+      </script>
+   </body>
+</html>

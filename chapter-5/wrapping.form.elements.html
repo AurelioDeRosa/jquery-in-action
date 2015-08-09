@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Wrapping form elements - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         .field
+         {
+            border: 1px solid black;
+            margin: 5px 0;
+         }
+      </style>
+   </head>
+
+   <body>
+      <form id="contact" method="post">
+         <label for="name">Name:</label>
+         <input name="name" id="name" />
+         <label for="email">Email:</label>
+         <input name="email" id="email" />
+         <label for="subject">Subject:</label>
+         <input name="subject" id="subject" />
+         <label for="message">Message:</label>
+         <textarea name="message" id="message"></textarea>
+         <input type="submit" value="Submit" />
+      </form>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('input, textarea', '#contact').each(function(index, element) {
+            var $this = $(this);
+            $this
+                 .add($this.prev('label'))
+                 .wrapAll('<div class="field"></div>');
+         });
+      </script>
+   </body>
+</html>

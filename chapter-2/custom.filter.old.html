@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>jQuery in Action, 3rd edition</title>
+      <meta name="description" content="Creating a custom filter" />
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <form>
+         <input type="text" name="name" required />
+         <input type="text" name="address" />
+         <select name="sex" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+         </select>
+         <input type="checkbox" name="privacy" required />
+      </form>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $.expr[":"].customRequired = function(element) {
+            return (
+                    element.nodeName === 'INPUT' &&
+                    (element.getAttribute('type') === 'text' || element.getAttribute('type') === 'checkbox')
+                    )  &&
+                    element.hasAttribute('required');
+         };
+
+         var $elements = $('form :customRequired');
+         console.log($elements.length);
+      </script>
+   </body>
+</html>

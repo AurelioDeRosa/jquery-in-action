@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Using $.noConflict()</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <p>The output is printed on the console</p>
+
+      <script>
+         window.$ = {
+            customLog: function(message) {
+               console.log('The function says: ' + message);
+            }
+         };
+      </script>
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         // Prints true
+         console.log('customLog: ' + ($.customLog === undefined));
+         // Restore the old value of $
+         $.noConflict();
+         // Prints false
+         console.log('customLog: ' + ($.customLog === undefined));
+         // Prints "The function says: Old value restored!"
+         $.customLog('Old value restored!');
+      </script>
+   </body>
+</html>
+

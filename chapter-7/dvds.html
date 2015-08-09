@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Disc Locator - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         html
+         {
+            background-image: url("images/background.jpg");
+         }
+
+         body
+         {
+            padding: 1em;
+            background-color: #FFFFFF;
+         }
+
+         .templates
+         {
+            display: none;
+         }
+
+         .filter
+         {
+            margin-bottom: 0.5em;
+         }
+
+         .template.qualifier
+         {
+            display: inline-block;
+            /* IE 6-7 Hack */
+            *display: inline;
+            zoom: 1;
+         }
+
+         #results
+         {
+            margin: 1em auto;
+            border-collapse: collapse;
+         }
+
+         #results th,
+         #results td
+         {
+            padding: 0.2em 0.5em;
+         }
+
+         #results tr:nth-child(odd)
+         {
+            background-color: #71A9D6;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Disc Locator</h1>
+
+      <form id="form-filters" action="#">
+         <fieldset>
+            <legend>Filters</legend>
+            <div id="filters">
+            </div>
+            <div class="buttons-wrapper">
+               <input type="button" id="filter-add" value="Add Filter" />
+               <input type="submit" id="filter-apply" value="Apply Filters"/>
+            </div>
+         </fieldset>
+      </form>
+
+      <div id="panel-results">
+         <table id="results">
+            <tr>
+               <th>Title</th>
+               <th>Year</th>
+               <th>Binder</th>
+               <th>Page</th>
+               <th>Slot</th>
+               <th>Viewed</th>
+            </tr>
+         </table>
+      </div>
+
+      <!-- hidden templates -->
+      <div class="templates">
+
+         <div class="template filter-chooser">
+            <input type="button" class="filter-remover" value="X" />
+
+            <select name="filter" class="filter-type">
+               <option value="" data-template-type="" selected="selected">Choose a filter</option>
+               <option value="title" data-template-type="template-title">DVD Title</option>
+               <option value="binder" data-template-type="template-binder">Binder</option>
+               <option value="year" data-template-type="template-year">Release Date</option>
+               <option value="viewed" data-template-type="template-viewed">Viewed?</option>
+            </select>
+         </div>
+
+         <div class="template template-title">
+            <select name="title-condition">
+               <option value="contains">contains</option>
+               <option value="starts-with">starts with</option>
+               <option value="ends-with">ends with</option>
+               <option value="equal">is exactly</option>
+            </select>
+            <input type="text" name="title" />
+         </div>
+
+         <div class="template template-binder">
+            <input type="text" name="binder-min" class="numeric" /> <span>through</span>
+            <input type="text" name="binder-max" class="numeric" />
+         </div>
+
+         <div class="template template-year">
+            <input type="text" name="year-min" class="date" /> <span>through</span>
+            <input type="text" name="year-max" class="date" />
+         </div>
+
+         <div class="template template-viewed">
+            <label><input type="radio" name="viewed" value="true" checked="checked" /> Yes</label>
+            <label><input type="radio" name="viewed" value="false" /> No</label>
+         </div>
+
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $filters = $('#filters');
+         var templatesAvailable = $('.template', '.templates').not('.filter-chooser').length;
+         var movies;
+         $.getJSON('movies.json', function(data) {
+            movies = data;
+            $(document).trigger('moviesLoaded');
+         });
+
+         $(document).on('moviesLoaded', function() {
+            $('#filters')
+                    .on('change', '.filter-type', function() {
+                       var $this = $(this);
+                       var $filter = $this.closest('.filter');
+                       var filterType = $this.find(':selected').data('template-type');
+
+                       $('.qualifier', $filter).remove();
+                       $('div.template.' + filterType)
+                               .clone()
+                               .addClass('qualifier')
+                               .appendTo($filter);
+                       $this.find('option[value=""]').remove();
+                    })
+                    .on('click', '.filter-remover', function() {
+                       $(this).closest('.filter').remove();
+                    });
+
+            $('#filter-add')
+                    .click(function() {
+                       // Check if the button was pressed before selecting a filter
+                       if ($filters.find('.template:last .filter-type').val() === '') {
+                          return;
+                       }
+
+                       // Find filters already in use
+                       var filterInUse = $filters
+                               .children()
+                               .map(function() {
+                                  return $(this)
+                                          .children('.template')
+                                          .attr('class')
+                                          .match(/\b(template-.+?)\b/g)[0];
+                               })
+                               .get();
+
+                       // All the filters available are already in use
+                       if (filterInUse.length === templatesAvailable) {
+                          return;
+                       }
+
+                       var $filterChooser = $('div.template.filter-chooser')
+                               .clone()
+                               .removeClass('filter-chooser')
+                               .addClass('filter');
+
+                       // Remove filters already in use
+                       $filterChooser
+                               .find('option[data-template-type]')
+                               .filter(function() {
+                                  return filterInUse.indexOf($(this).data('template-type')) >= 0;
+                               })
+                               .remove();
+                       $filterChooser.appendTo($filters);
+                    })
+                    .click();
+
+            $('#form-filters').submit(function(event) {
+               event.preventDefault();
+
+               var titleCondition = $filters.find('select[name="title-condition"]').val();
+               var title = $filters.find('input[name="title"]').val();
+               var binderMin = parseInt($filters.find('input[name="binder-min"]').val(), 10);
+               var binderMax = parseInt($filters.find('input[name="binder-max"]').val(), 10);
+               var yearMin = parseInt($filters.find('input[name="year-min"]').val(), 10);
+               var yearMax = parseInt($filters.find('input[name="year-max"]').val(), 10);
+               var viewed = $filters.find('input[name="viewed"]:checked').val();
+
+               // Clear previous results, but not headers
+               $('tr:has(td)', '#results').remove();
+               var results = $.grep(movies, function(element, index) {
+                  return (
+                        (
+                             (titleCondition === undefined && title === undefined) ||
+                             (titleCondition === 'contains' && element.title.indexOf(title) >= 0) ||
+                             (titleCondition === 'starts-with' && element.title.indexOf(title) === 0) ||
+                             (titleCondition === 'ends-with' && element.title.indexOf(title) === element.title.length - title.length) ||
+                             (titleCondition === 'equals' && element.title === title)
+                        ) &&
+                        (isNaN(binderMin) || element.binder >= binderMin) &&
+                        (isNaN(binderMax) || element.binder <= binderMax) &&
+                        (isNaN(yearMin) || element.year >= yearMin) &&
+                        (isNaN(yearMax) || element.year <= yearMax) &&
+                        (viewed === undefined || element.viewed === (viewed === 'true'))
+                  );
+               });
+
+               var row;
+               // This loop can be optimized but we wanted to recall that you can create an element on the fly using
+               // jQuery. The optimization can be done putting all the rows as a string inside the variable "row" and
+               // appending all the elements in one call after the loop.
+               for(var i = 0; i < results.length; i++) {
+                  row = '<td>' + results[i].title + '</td>';
+                  row += '<td>' + results[i].year + '</td>';
+                  row += '<td>' + results[i].binder + '</td>';
+                  row += '<td>' + results[i].page + '</td>';
+                  row += '<td>' + results[i].slot + '</td>';
+                  row += '<td>' + (results[i].viewed ? 'X' : '') + '</td>';
+
+                  $('#results').append(
+                          $('<tr>').html(row)
+                  );
+               }
+            });
+         });
+      </script>
+   </body>
+</html>

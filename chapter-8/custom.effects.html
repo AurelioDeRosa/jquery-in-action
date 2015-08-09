@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Custom Effects Demo</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         .buttons
+         {
+            margin-bottom: 1em;
+         }
+      </style>
+   </head>
+
+   <body>
+
+      <h1>Custom Effects Demo</h1>
+
+      <div class="buttons">
+         <button id="scale-button">Scale</button>
+         <button id="drop-button">Drop</button>
+         <button id="puff-button">Puff</button>
+         <button id="restore-button">Restore</button>
+      </div>
+
+      <img id="test-subject" src="images/limes.png"/>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $testSubject = $('#test-subject');
+
+         $('#scale-button').click(function () {
+            $testSubject.animate({
+                  width: $testSubject.width() * 2,
+                  height: $testSubject.height() * 2
+               },
+               'slow'
+            );
+         });
+
+         $('#drop-button').click(function () {
+            $testSubject
+                    .css('position', 'relative')
+                    .animate({
+                       opacity: 0,
+                       top: $(window).height() - $testSubject.height() - $testSubject.position().top
+                    },
+                    'normal',
+                    function() {
+                       $testSubject.hide();
+                    }
+            );
+         });
+
+         $('#puff-button').click(function () {
+            var position = $testSubject.position();
+            $testSubject
+                    .css({
+                       position: 'absolute',
+                       top: position.top,
+                       left: position.left
+                    })
+                    .animate({
+                          opacity: 'hide',
+                          width: $testSubject.width() * 5,
+                          height: $testSubject.height() * 5,
+                          top: position.top - ($testSubject.height() * 5 / 2),
+                          left: position.left - ($testSubject.width() * 5 / 2)
+                       },
+                       'fast'
+                    );
+         });
+
+         $('#restore-button').click(function () {
+            $testSubject
+                    .css({
+                       width: 'auto',
+                       height: 'auto',
+                       top: 'auto',
+                       left: 'auto',
+                       opacity: 1,
+                       position: 'static',
+                       display: 'block'
+                    });
+         });
+      </script>
+   </body>
+</html>

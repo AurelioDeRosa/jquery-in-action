@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Event Delegation in JavaScript - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <ul id="my-list">
+         <li>Item 1</li>
+         <li>Item 2</li>
+         <li>Item 3</li>
+         <li>Item 4</li>
+         <li>Item 5</li>
+      </ul>
+
+      <script>
+         document.getElementById('my-list').addEventListener('mouseover', function(event) {
+            if (event.target.nodeName === 'LI') {
+               console.log('List item: ' +
+                       (Array.prototype.indexOf.call(
+                               document.getElementById('my-list').children,
+                               event.target
+                       ) + 1)
+               );
+            }
+         }, false);
+      </script>
+   </body>
+</html>

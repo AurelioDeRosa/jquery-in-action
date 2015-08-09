@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>QUnit - Test 2</title>
+      <link rel="stylesheet" href="../css/qunit-1.18.0.css" />
+   </head>
+   <body>
+      <div id="qunit"></div>
+      <div id="qunit-fixture"></div>
+
+      <script>
+         function sum(a, b) {
+            return a + b;
+         }
+      </script>
+      <script src="../js/qunit-1.18.0.js"></script>
+      <script>
+         QUnit.test('My first test', function(assert) {
+            assert.expect(4);
+            assert.strictEqual(sum(2, 2), 4, 'Sum of two positive numbers');
+            assert.strictEqual(sum(-2, -2), -4, 'Sum of two negative numbers');
+            assert.strictEqual(sum(2, 0), 2, 'Sum of a positive number and the neutral element');
+            assert.notStrictEqual(sum(-2, 2), false, 'Sum of a negative and a positive number is not false');
+         });
+      </script>
+   </body>
+</html>

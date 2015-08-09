@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Placeholder Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <form>
+         <label for="username">Username:</label>
+         <input id="username" name="username" placeholder="JohnDoe" />
+
+         <label for="email">Email:</label>
+         <input type="email" id="email" name="email" placeholder="email@fake.com" />
+
+         <input type="submit" value="Login" />
+      </form>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('input').each(function(index, element) {
+            var $element = $(element);
+            $element.attr('value', $element.attr('placeholder'));
+         });
+      </script>
+   </body>
+</html>

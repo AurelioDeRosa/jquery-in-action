@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.proxy() Example</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <h1>$.proxy() Example</h1>
+      <div id="control-panel">
+         Establish handler as:
+         <label for="bind-normal">
+            <input type="radio" name="bind-type" value="normal" id="bind-normal" checked="checked" />
+            Normal
+         </label>
+         <label for="bind-proxied">
+            <input type="radio" name="bind-type" value="proxied" id="bind-proxied" />
+            Proxied
+         </label>
+      </div>
+
+      <button id="test-button">Test</button>
+
+      <h3>Log</h3>
+      <ol id="log"></ol>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function customLog() {
+            $('#log').prepend('<li>' + this.id + '</li>');
+         }
+
+         var $button = $('#test-button');
+         var $bindType = $('[name="bind-type"]');
+         $bindType.change(function() {
+            $button.off('click');
+
+            if ($bindType.filter(':checked').val() === 'normal') {
+               $button.click(customLog);
+            } else {
+               $button.click($.proxy(customLog, $('#control-panel').get(0)));
+            }
+         })
+         .change();
+    </script>
+  </body>
+</html>

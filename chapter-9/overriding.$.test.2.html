@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Overriding $ - Test 2</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <button id="button-test">Click me!</button>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $ = 'Hello world!';
+         try {
+            (function($) {
+               $('#button-test').on('click', function() {
+                  alert('$ is an alias for jQuery');
+               });
+            })(jQuery);
+         } catch (ex) {
+            alert('$ has been replaced. The value is "' + $ + '"');
+         }
+      </script>
+   </body>
+</html>

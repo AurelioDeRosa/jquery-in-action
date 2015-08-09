@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.getScript() Example</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <button id="load-button">Load</button>
+      <button id="inspect-button">Inspect</button>
+
+      <p>Click the Load button and then the Inspect button</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#load-button').click(function() {
+            $.getScript('external.js');
+         });
+
+         $('#inspect-button').click(function() {
+            someFunction(someVariable);
+         });
+      </script>
+   </body>
+</html>

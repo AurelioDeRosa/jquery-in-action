@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Working with $.ajaxPrefilter()</title>
+      <link rel="stylesheet" href="../css/main.css" />
+   </head>
+   <body>
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $.ajaxPrefilter('xml', function(options, originalOptions, jqXHR) {
+            if ($.inArray(options.url, originalOptions.deniedDomains) !== -1) {
+               console.log('Ajax request to ' + options.url + ' aborted');
+               jqXHR.abort();
+            } else {
+               console.log('Ajax request performed');
+            }
+         });
+
+         $.ajax(
+                 'http://www.google.com',
+                 {
+                    dataType: 'xml',
+                    deniedDomains: [
+                       'http://www.google.com',
+                       'http://www.manning.com'
+                    ]
+                 }
+         );
+
+         $.ajax(
+                 'http://www.google.com',
+                 {
+                    dataType: 'xml',
+                    deniedDomains: [
+                       'http://www.google.com',
+                       'http://www.manning.com'
+                    ]
+                 }
+         );
+      </script>
+   </body>
+</html>

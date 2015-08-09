@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>QUnit - Asynchronous test</title>
+      <link rel="stylesheet" href="../css/qunit-1.18.0.css" />
+   </head>
+   <body>
+      <div id="qunit"></div>
+      <div id="qunit-fixture"></div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function isEven(number) {
+            return number % 2 === 0;
+         }
+      </script>
+      <script src="../js/qunit-1.18.0.js"></script>
+      <script>
+         QUnit.test('Testing asynchronous code', function(assert) {
+            var $fixtures = $('#qunit-fixture');
+            assert.expect(4);
+
+            assert.strictEqual($fixtures.children().length, 0, 'The children of qunit-fixtures are 0');
+
+            var firstCallback = assert.async();
+            window.setTimeout(function() {
+               assert.ok(isEven(4), '4 is even');
+               firstCallback();
+            }, 500);
+
+            var secondCallback = assert.async();
+            $fixtures.load('test.1.html #qunit', function() {
+               assert.ok(true, 'File test.1.html has been successfully loaded');
+               assert.strictEqual($fixtures.children().length, 1, 'The elements appended to qunit-fixtures are 1');
+               secondCallback();
+            });
+         });
+      </script>
+   </body>
+</html>

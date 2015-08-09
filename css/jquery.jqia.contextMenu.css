@@ -1,0 +1,33 @@
+ul.context-menu
+{
+   position: absolute;
+   z-index: 1000;
+   display: none;
+   background-color: menu;
+   list-style-type: none !important;
+   margin: 0 !important;
+   padding: 0 !important;
+}
+
+ul.context-menu *
+{
+   color: menutext;
+}
+
+ul.context-menu > li
+{
+   border: 1px solid black;
+   margin: 0 !important;
+   padding: 2px 5px !important;
+}
+
+ul.context-menu > li:hover
+{
+   background-color: activecaption;
+}
+
+ul.context-menu > li a
+{
+   display: block;
+   text-decoration: none;
+}

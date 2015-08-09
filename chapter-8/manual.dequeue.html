@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Manual Dequeue</title>
+      <link rel="stylesheet" href="../css/main.css" />
+      <style>
+         button
+         {
+            display: block;
+            margin: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <button>Dequeue</button>
+
+      <img src="images/earth.png" alt="Earth" />
+      <img src="images/moon.png" alt="Moon" />
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $images = $('img');
+
+         $images
+                 .queue('chain', function() {
+                    console.log('First: ' + $(this).attr('alt'));
+                 })
+                 .queue('chain', function() {
+                    console.log('Second: ' + $(this).attr('alt'));
+                 })
+                 .queue('chain', function() {
+                    console.log('Third: ' + $(this).attr('alt'));
+                 })
+                 .queue('chain', function() {
+                    console.log('Fourth: ' + $(this).attr('alt'));
+                 });
+
+         $('button').click(function() {
+            $images.dequeue('chain');
+         });
+      </script>
+   </body>
+</html>

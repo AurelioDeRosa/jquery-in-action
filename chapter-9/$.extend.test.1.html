@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Using $.extend() - Test 1</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         label
+         {
+            font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>$.extend() - Test 1</h1>
+      <div>
+        <label>target (before) =</label>
+        <span id="targetBeforeDisplay"></span>
+      </div>
+      <div>
+        <label>source1 =</label>
+        <span id="source1Display"></span>
+      </div>
+      <div>
+        <label>source2 =</label>
+        <span id="source2Display"></span>
+      </div>
+      <div>
+        <label>target (after) =</label>
+        <span id="targetAfterDisplay"></span>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function objectToString(obj) {
+            var string = '{';
+            for(var prop in obj) {
+               string += prop + ': ' + obj[prop] + ', ';
+            }
+            string = string.replace(/, $/, '');
+            string += '}';
+
+            return string;
+         }
+
+         // Sets the three objects
+         var target =  {a: 1, b: 2, c: 3};
+         var source1 = {c: 4, d: 5, e: 6};
+         var source2 = {c: 7, e: 8, f: 9};
+
+         // Shows the contents of the three objects
+         $('#targetBeforeDisplay').text(objectToString(target));
+         $('#source1Display').text(objectToString(source1));
+         $('#source2Display').text(objectToString(source2));
+
+         // Merges the three objects putting all the properties into the first
+         $.extend(target, source1, source2);
+
+         // Shows the content of the merged objects
+         $('#targetAfterDisplay').text(objectToString(target));
+      </script>
+   </body>
+</html>

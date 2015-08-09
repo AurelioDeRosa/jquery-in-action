@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.param() Lab</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         textarea
+         {
+            margin: 0.5em auto;
+            display: block;
+            width: 90%;
+            height: 15em;
+         }
+      </style>
+   </head>
+   <body>
+      <h1 class="header">$.param() Lab</h1>
+
+      <div class="box-small">
+         <label>
+            <input type="radio" name="source" value="flat-source" checked="checked" />
+            Flat source:
+         </label>
+         <textarea id="flat-source">{
+  firstname: 'Yogi',
+  lastname: 'Bear',
+  streetaddress: '123 Anywhere Lane',
+  city: 'Austin',
+  state: 'TX',
+  postalcode : '78701'
+}</textarea>
+      </div>
+
+      <div class="box-small">
+         <label>
+            <input type="radio" name="source" value="nested-source">
+            Nested source:
+         </label>
+         <textarea id="nested-source">{
+  name: {
+    first: 'Yogi',
+    last: 'Bear'
+  },
+  address: {
+    street: '123 Anywhere Lane',
+    city: 'Austin',
+    state: 'TX',
+    postalcode : '78701'
+  }
+}</textarea>
+      </div>
+
+      <div>
+         <label for="traditional-checkbox">
+            <input type="checkbox" name="traditional" id="traditional-checkbox" checked="checked" />
+            Traditional
+         </label>
+         <br />
+         <button id="apply-button">Apply</button>
+      </div>
+
+      <div>
+         <h2>Result</h2>
+         <p id="result"></p>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#apply-button').click(function() {
+            var sourceName = $('[name="source"]:checked').val();
+            var source = eval('(' + $('#' + sourceName).val() + ')');
+            var traditional = $('[name="traditional"]:checked').length === 1;
+
+            $('#result').html(
+               'Using <em>' + sourceName + '</em> with <em>traditional</em> ' +
+               (traditional ? 'enabled' : 'disabled') + ' produced: <br />' +
+               '<code>' + decodeURIComponent($.param(source, traditional)) + '</code>'
+            );
+         });
+      </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+body
+{
+   width: 500px;
+   margin: 0 auto;
+}
+
+.error-message
+{
+   display: none;
+   color: #FA4343;
+}
+
+.todos
+{
+   list-style: none;
+   padding: 0;
+   font-size: 1.2em;
+}
+
+.todo
+{
+   background-color: #F2F2F2;
+   border-bottom: 2px solid #8E99A4;
+   position: relative;
+   padding: 0.5em 0.3em;
+}
+
+.todo > *
+{
+   vertical-align: middle;
+}
+
+.todo-position
+{
+   width: 3em;
+}
+
+.todo-title
+{
+   width: 80%;
+   display: inline-block;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+}
+
+.todo-title:focus
+{
+   background-color: #FFFFFF;
+}
+
+.todo-stroked
+{
+   text-decoration: line-through;
+}
+
+.todo-delete
+{
+   float: right;
+   cursor: pointer;
+}

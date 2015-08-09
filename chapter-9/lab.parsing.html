@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Parsing Functions Lab</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         textarea
+         {
+            margin: 0.5em auto;
+            display: block;
+            width: 90%;
+            height: 16em;
+         }
+
+         label
+         {
+            display: block;
+         }
+      </style>
+   </head>
+   <body>
+      <h1 class="header">Parsing Functions Lab</h1>
+
+      <div class="box">
+         <p>JSON</p>
+         <textarea id="json">{
+   "firstName": "John",
+   "lastName": "Doe",
+   "address": {
+      "city": "London",
+      "nation": "United Kingdom",
+      "street": {
+         "name": "Oxford street",
+         "number": 12
+      }
+   },
+   "age": 26
+}</textarea>
+         <label for="json-property">Search property (for example: address.city):</label>
+         <input type="text" id="json-property" />
+         <button id="get-value-button">Get value</button>
+         <p>Found value: <em id="json-value"></em></p>
+      </div>
+      <div class="box-small">
+         <label>
+            <input type="radio" name="source" value="xml" checked="checked" />
+            XML:
+         </label>
+         <textarea id="xml"><family>
+   <person>
+      <name>John</name>
+      <surname>Doe</surname>
+      <job>Web developer</job>
+   </person>
+   <person>
+      <name>Pamela</name>
+      <surname>Smith</surname>
+      <address>
+         <city>London</city>
+         <nation>United Kingdom</nation>
+      </address>
+   </person>
+   <person>
+      <name>Michelle</name>
+      <surname>Doe</surname>
+      <age>24</age>
+      <hobby>Dance</hobby>
+   </person>
+</family></textarea>
+      </div>
+      <div class="box-small">
+         <label>
+            <input type="radio" name="source" value="html" />
+            HTML:
+         </label>
+         <textarea id="html"><div>
+   <div>
+      <h1>I'm a header</h1>
+      <p>I'm the <span class="red">text</span></p>
+      <p>I'm <em>another</em> text</p>
+   </div>
+   <div>
+      <h1>This is the second section</h1>
+      <p>I'm a yet another paragraph</p>
+      <ul>
+         <li>Item 1</li>
+         <li class="red">Item 2</li>
+      </ul>
+      <small class="note">This is a note</small>
+   </div>
+</div></textarea>
+      </div>
+
+      <div>
+         <label for="selector">Selector (for example: p > em):</label>
+         <input type="text" name="selector" id="selector" />
+         <button id="selector-button">Select</button>
+         <p>Found <em id="html-xml-value">0</em> result(s)</p>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var json = $.parseJSON($('#json').val());
+         var xml = $.parseXML($('#xml').val());
+         // Wrap the HTML code inside a temporary element
+         var html = $('<div>').append($.parseHTML($('#html').val()));
+
+         $('#get-value-button').click(function() {
+            $('#json-value').text(eval('json.' + $('#json-property').val()));
+         });
+
+         $('#selector-button').click(function() {
+            var selector = $('#selector').val();
+            var context = $('[name="source"]:radio:checked').val() === 'xml' ? xml : html;
+
+            $('#html-xml-value').text($(selector, context).length);
+         });
+      </script>
+  </body>
+</html>

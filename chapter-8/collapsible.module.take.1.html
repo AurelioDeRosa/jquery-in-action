@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Collapsible Module - Take 1</title>
+      <link rel="stylesheet" href="../css/main.css" />
+      <link rel="stylesheet" href="../css/module.css" />
+   </head>
+   <body>
+      <div class="module">
+         <div class="caption clearfix">
+            <h1>Module Caption</h1>
+            <span class="icon-roll">-</span>
+         </div>
+         <div class="body">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+            Aliquam eget enim id neque aliquet porttitor. Suspendisse
+            nisl enim, nonummy ac, nonummy ut, dignissim ac, justo.
+            Aenean imperdiet semper nibh. Vivamus ligula. In in ipsum
+            sed neque vehicula rhoncus. Nam faucibus pharetra nisi.
+            Integer at metus. Suspendisse potenti. Vestibulum ante
+            ipsum primis in faucibus orci luctus et ultrices posuere
+            cubilia Curae; Proin quis eros at metus pretium elementum.
+         </div>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('.icon-roll').click(function() {
+            var $body = $(this).closest('.module').find('.body');
+            if ($body.is(':hidden')) {
+               $body.show();
+            } else {
+               $body.hide();
+            }
+         });
+      </script>
+   </body>
+</html>

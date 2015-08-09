@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <title>jQuery Advanced Effects Lab Page</title>
+   <link rel="stylesheet" href="../css/main.css"/>
+   <style>
+      h2,
+      h3
+      {
+         margin: 0.2em 0;
+      }
+
+      label
+      {
+         margin-right: 0.5em;
+      }
+
+      .panel,
+      .test-subjects
+      {
+         margin: 0.5em 0;
+      }
+
+      .panel-effects ul
+      {
+         margin: 0;
+         padding: 0;
+         list-style: none;
+         clear: both;
+      }
+
+      .panel-effects li
+      {
+         float: left;
+      }
+
+      .test-subject
+      {
+         width: 120px;
+         height: 120px;
+         float: left;
+         border: 1px #000000 solid;
+         margin-right: 1em;
+      }
+
+      #command
+      {
+         color: #800706;
+      }
+
+      input[type="radio"]
+      {
+         vertical-align: baseline;
+      }
+   </style>
+</head>
+
+<body>
+   <h1 class="header">jQuery Advanced Effects Lab Page</h1>
+
+   <div class="box">
+      <h2>Control Panel</h2>
+
+      <div class="panel panel-effects box clearfix">
+         <h3>Effect</h3>
+
+         <ul>
+            <li>
+
+               <label>
+                  <input type="radio" name="effect" value="show" checked="checked"/> Show
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="hide"/> Hide
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="toggle"/> Toggle
+               </label>
+            </li>
+         </ul>
+         <ul>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="fadeIn"/> Fade In
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="fadeOut"/> Fade Out
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="fadeToggle"/> Fade Toggle
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="fadeTo"/> Fade To
+               </label>
+         </ul>
+         <ul>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="slideDown"/> Slide Down
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="slideUp"/> Slide Up
+               </label>
+            </li>
+            <li>
+               <label>
+                  <input type="radio" name="effect" value="slideToggle"/> Slide Toggle
+               </label>
+            </li>
+         </ul>
+      </div>
+
+      <div class="panel panel-speed box">
+         <h3>Speed</h3>
+
+         <label>
+            <input type="radio" name="speed" value="none" checked="checked"/> None
+         </label>
+         <label>
+            <input type="radio" name="speed" value="slow"/> Slow
+         </label>
+         <label>
+            <input type="radio" name="speed" value="normal"/> Normal
+         </label>
+         <label>
+            <input type="radio" name="speed" value="fast"/> Fast
+         </label>
+         <label>
+            <input type="radio" name="speed" value="custom" id="custom-speed"/> Milliseconds:
+         </label>
+         <input type="text" name="speed-value" id="speed-value" disabled="disabled"/>
+      </div>
+
+      <div class="panel panel-opacity box">
+         <h3>Opacity</h3>
+         <input type="text" name="opacity" id="opacity" disabled="disabled"/> (0.0 - 1.0, for "Fade to")
+      </div>
+
+      <div class="panel panel-easing box">
+         <h3>Easing</h3>
+         <select name="easing">
+         </select>
+      </div>
+
+      <button id="button-apply">Apply</button>
+
+      <div id="command-wrapper" class="panel box">
+         <h3>Applied command</h3>
+         <code id="command"></code>
+      </div>
+   </div>
+
+   <div class="panel box">
+      <h2>Test Subjects</h2>
+
+      <div class="test-subjects clearfix">
+         <div class="test-subject">This is a test subject &lt;div&gt; element that starts out displayed.</div>
+         <div class="test-subject"><img src="images/limes.png" alt=""/></div>
+         <div class="test-subject">This is a test subject &lt;div&gt; element that starts out hidden.</div>
+         <div class="test-subject"><img src="images/belt.png" alt=""/></div>
+      </div>
+
+   </div>
+
+   <script src="../js/jquery-1.11.3.min.js"></script>
+   <script src="../js/jquery.easing.min.js"></script>
+   <script>
+      function buildEasingSelector() {
+         var options = '';
+         for(var easing in $.easing) {
+            if (easing !== 'def') {
+               options += '<option value="' + easing + '">' + easing + '</option>';
+            }
+         }
+         $('select', '.panel-easing').html(options);
+      }
+
+      function showCommand(effect, speed, easing, opacity) {
+         var text = '$(".test-subject").' + effect + '(';
+
+         if (speed) {
+            text += ((typeof speed === 'string') ? "'" : "") + speed + ((typeof speed === 'string') ? "'" : "");
+         }
+         if (easing) {
+            text += ", '" + easing + "'";
+         }
+         if (opacity){
+            text += ', ' + opacity;
+         }
+         text += ');';
+
+         $('#command').html(text);
+      }
+
+      var $testSubjects = $('.test-subject');
+
+      $('#button-apply').click(function () {
+         var effect = $('input:radio:checked', '.panel-effects').val();
+         var speed = $('input:radio:checked', '.panel-speed').val();
+         var opacity = parseFloat($('#opacity').val());
+         var easing = $('select option:selected', '.panel-easing').val();
+
+         if (speed === 'custom') {
+            speed = parseInt($('#speed-value').val());
+            if (isNaN(speed) || speed < 0) {
+               speed = 'normal';
+            }
+         }
+
+         if ((effect === 'show' || effect === 'hide' || effect === 'toggle') && speed === 'none') {
+            showCommand(effect);
+            $testSubjects[effect]();
+         } else if (effect === 'fadeTo') {
+            if (speed === 'none') {
+               speed = 'normal';
+            }
+            showCommand(effect, speed, easing, opacity);
+            $testSubjects[effect](speed, easing, opacity);
+         } else {
+            if (speed === 'none') {
+               speed = 'normal';
+            }
+            showCommand(effect, speed, easing);
+            $testSubjects[effect](speed, easing);
+         }
+      });
+
+      $('input', '.panel-speed').click(function() {
+         $('#speed-value').prop('disabled', !$('#custom-speed').is(':checked'));
+      });
+
+      $('input', '.panel-effects').click(function() {
+         $('#opacity').prop('disabled', !$('input[value="fadeTo"]').is(':checked'));
+      });
+
+      $testSubjects.slice(2).hide();
+      $testSubjects.filter(':nth-child(4)').css('opacity', 0.5);
+      buildEasingSelector();
+   </script>
+</body>
+</html>

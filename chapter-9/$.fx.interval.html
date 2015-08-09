@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.fx.interval Example</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         #animate
+         {
+            margin-top: 10px;
+         }
+
+         #test-area
+         {
+            width: 30px;
+            height: 30px;
+            margin: 20px 0;
+            background: #3875BA;
+         }
+      </style>
+   </head>
+   <body>
+      <div>
+         <button id="fast">Set interval to 5</button>
+         <button id="reset">Set interval to 13 (default)</button>
+         <button id="slow">Set interval to 200</button>
+      </div>
+      <button id="animate">Animate!</button>
+
+      <div id="test-area"></div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#animate').click(function() {
+            $('#test-area').toggle(2000);
+         });
+
+         $('#fast').click(function() {
+            $.fx.interval = 5;
+         });
+
+         $('#reset').click(function() {
+            $.fx.interval = 13;
+         });
+
+         $('#slow').click(function() {
+            $.fx.interval = 200;
+         });
+      </script>
+   </body>
+</html>

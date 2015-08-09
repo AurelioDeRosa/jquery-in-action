@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta charset="utf-8" />
+     <title>jQuery in Action, third edition</title>
+     <meta name="description" content="Working with nextUntil()" />
+     <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <ul>
+         <li class="awesome">First</li>
+         <li>Second</li>
+         <li class="useless">Third</li>
+         <li class="good">Fourth</li>
+         <li class="brilliant amazing">Fifth</li>
+      </ul>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         // Without using the filter parameter
+         console.log($('.awesome').nextUntil('.brilliant.amazing').length);
+
+         // Using the filter parameter
+         console.log($('.awesome').nextUntil('.brilliant.amazing', '.good').length);
+      </script>
+   </body>
+</html>

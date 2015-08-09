@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Contact form  - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+
+      <style>
+          .form-field
+          {
+              margin: 0.5em 0;
+          }
+
+          .form-field label
+          {
+             display: block;
+          }
+
+          .animations-box
+          {
+              margin-bottom: 1em;
+          }
+
+          .dialog-box
+          {
+              display: none;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              height: 150px;
+              width: 300px;
+              margin-top: -75px;
+              margin-left: -150px;
+              border-radius: 5px;
+              background-color: #999999;
+              border: 1px solid #000000;
+              padding: 0.5em;
+          }
+
+          .dialog-box h2
+          {
+              margin-top: 0;
+              border-bottom: 1px solid #000000;
+          }
+
+          .error
+          {
+              color: #FF3000;
+              display: block;
+              min-height: 1.5em;
+          }
+      </style>
+   </head>
+   <body>
+      <h1>Contact form</h1>
+
+      <div class="animations-box">
+         <label for="animations">Animations are:</label>
+         <select id="animations">
+            <option value="true" selected>On</option>
+            <option value="false">Off</option>
+         </select>
+      </div>
+
+      <form id="contact-form" name="contact-form" class="box" method="post" action="contact.php">
+         <div class="form-field">
+            <label for="name">Full name:</label>
+            <input name="name" id="name" />
+            <span class="error"></span>
+         </div>
+         <div class="form-field">
+            <label for="email">Email:</label>
+            <input name="email" id="email" />
+            <span class="error"></span>
+         </div>
+         <div class="form-field">
+            <label for="subject">Subject:</label>
+            <input name="subject" id="subject" />
+            <span class="error"></span>
+         </div>
+         <div class="form-field">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message"></textarea>
+            <span class="error"></span>
+         </div>
+         <input type="submit" value="Submit" />
+         <input type="reset" value="Reset" />
+      </form>
+
+       <div class="dialog-box">
+          <h2 class="title"></h2>
+          <p class="message"></p>
+          <button>OK</button>
+       </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $dialogBox = $('.dialog-box');
+         var $contactForm = $('#contact-form');
+
+         $dialogBox.children('button').click(function() {
+            $(this)
+                .parent()
+                .slideUp();
+         });
+
+         $('#animations').change(function() {
+            $.fx.off = $(this).val() === 'false';
+         })
+         .change();
+
+         $contactForm.find('input, textarea').blur(function() {
+             var $this = $(this);
+
+             $.ajax('contact.php', {
+                 method: 'POST',
+                 dataType: 'json',
+                 data: $this.serialize() + '&partial=true',
+                 success: function(data) {
+                    if (data.status === 'error') {
+                        $this
+                            .next('.error')
+                            .text(data.info[0].message);
+                    }
+                 },
+                 error: function(data) {
+                     console.log(data);
+                 }
+             });
+         })
+         .focus(function() {
+            $(this)
+                .next('.error')
+                .text('');
+         });
+
+         $contactForm.find('input[type="submit"], input[type="reset"]').click(function() {
+             $(this)
+                 .closest('form')
+                 .find('.error')
+                 .text('');
+         });
+
+         $contactForm.submit(function(event) {
+            event.preventDefault();
+
+            $.post(
+                'contact.php',
+                $(this).serialize(),
+                function(data) {
+                    if (data.status === 'error') {
+                        $.each(data.info, function(index, elem) {
+                            $('#' + elem.field)
+                                .next('.error')
+                                .text(elem.message);
+                        });
+                    }
+
+                    $dialogBox
+                        .children('.title')
+                        .text(data.status);
+
+                    $dialogBox
+                        .children('.message')
+                        .text(data.message);
+
+                    $dialogBox
+                        .finish()
+                        .show('fast');
+                },
+                'json'
+            );
+         });
+      </script>
+   </body>
+</html>

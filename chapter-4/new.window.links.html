@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>New window links Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <ul>
+         <li><a href="http://www.manning.com/derosa/">jQuery in Action, third edition</a></li>
+         <li><a href="http://jquery.com">jQuery</a></li>
+         <li><a href="http://www.manning.com/">Manning Publications</a></li>
+         <li><a href="getting.and.setting.data.html">Internal link 1</a></li>
+         <li><a href="placeholder.html">Internal link 2</a></li>
+      </ul>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('a[href^="http://"]')
+              .not('[target="_blank"]')
+              .attr('target', '_blank');
+      </script>
+   </body>
+</html>

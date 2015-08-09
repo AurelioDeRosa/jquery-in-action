@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Easing Functions</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         #test-subject
+         {
+            position: relative;
+         }
+      </style>
+   </head>
+   <body>
+      <h2>Easing</h2>
+      <span>Choose your easing function:</span>
+      <select name="easing">
+      </select>
+
+      <button id="button-apply">Apply</button>
+
+      <h3>Test Subject</h3>
+
+      <div>
+         <img src="images/limes.png" id="test-subject" alt=""/>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script src="../js/jquery.easing.min.js"></script>
+      <script>
+         function buildEasingSelector() {
+            var options = '';
+            for (var easing in $.easing) {
+               if (easing !== 'def') {
+                  options += '<option value="' + easing + '">' + easing + '</option>';
+               }
+            }
+            $('select[name="easing"]').html(options);
+         }
+
+         var $testSubject = $('#test-subject');
+         $('#button-apply').click(function() {
+            $testSubject.css('left', 0);
+            $testSubject.animate(
+                    {
+                       left: $testSubject.parent().width() - $testSubject.width()
+                    },
+                    2000,
+                    $('select[name="easing"] option:selected').val()
+            );
+         });
+
+         buildEasingSelector();
+      </script>
+   </body>
+</html>

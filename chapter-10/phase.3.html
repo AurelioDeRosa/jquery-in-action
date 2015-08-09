@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>The Boot Closet - Phase 3</title>
+      <link rel="stylesheet" href="../css/main.css" />
+      <link rel="stylesheet" href="../css/bootcloset.css" />
+   </head>
+   <body>
+      <div id="banner"></div>
+
+      <h1>Choose your boots</h1>
+      <div id="selections-pane">
+         <label for="boot-chooser-control">Boot style:</label>
+         <select id="boot-chooser-control" name="model"></select>
+
+         <label for="color-chooser-control">Color:</label>
+         <select id="color-chooser-control" name="color" disabled></select>
+
+         <label for="size-chooser-control">Size:</label>
+         <select id="size-chooser-control" name="size" disabled></select>
+      </div>
+      <div id="product-detail-pane"></div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $bootChooser = $('#boot-chooser-control');
+         var $colorChooser = $('#color-chooser-control');
+         var $sizeChooser = $('#size-chooser-control');
+
+         $bootChooser
+                 .load('actions/fetch-boot-style-options.php')
+                 .change(function() {
+                    $('#product-detail-pane').load('actions/fetch-product-details.php', $(this).serialize());
+
+                    $colorChooser.load(
+                            'actions/fetch-color-options.php',
+                            $(this).serialize(),
+                            function() {
+                               $(this).prop('disabled', false);
+                               $sizeChooser
+                                       .prop('disabled', true)
+                                       .html('');
+                            }
+                    );
+                 });
+
+         $colorChooser.change(function() {
+            $sizeChooser.load(
+                    'actions/fetch-size-options.php',
+                    $colorChooser
+                            .add($bootChooser)
+                            .serialize(),
+                    function() {
+                       $(this).prop('disabled', false);
+                    }
+            );
+         });
+
+         $('#selections-pane').change(function(event){
+            $('[value=""]', event.target).remove();
+         });
+      </script>
+   </body>
+</html>

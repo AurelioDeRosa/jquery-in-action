@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Jqia Date Format  - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css" />
+   </head>
+   <body>
+      <div id="log">
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script src="../js/jquery.jqia.formatDate.js"></script>
+      <script>
+         var now = new Date();
+         var $log = $('#log');
+         var testPatterns = [
+            'yyyy', 'yy', 'MMMM', 'MMM', 'MM', 'M', 'dd', 'd', 'EEEE', 'EEE', 'a',
+            'HH', 'H', 'hh', 'h', 'mm', 'm', 'ss', 's', 'S',
+            'EEEE MMMM, d yyyy hh:mm:ss.S a',
+            'M/d/yy HH:mm'
+         ];
+
+         $log.append('<div>Test date: ' + now + '</div>');
+         $.each(testPatterns, function () {
+            $log.append('<div>' + this + '=' + $.jqiaFormatDate(now, this) + '</div>');
+         });
+      </script>
+  </body>
+</html>

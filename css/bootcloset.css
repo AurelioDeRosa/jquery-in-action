@@ -1,0 +1,71 @@
+html
+{
+   background: url('../chapter-10/images/backg.png') repeat;
+   color: white;
+}
+
+body
+{
+   border: 8px ridge #362c24;
+   background-color: #46403c;
+   padding: 1em;
+}
+
+#banner
+{
+   margin: auto;
+   background: url('../chapter-10/images/banner-boot-closet.png') no-repeat 50%;
+   width: 100%;
+   height: 45px;
+}
+
+h1
+{
+   color: #eda633;
+}
+
+.boot-description .property
+{
+   font-weight: bold;
+}
+
+#product-detail-pane
+{
+   font-size: 0.9em;
+   margin-top: 20px;
+}
+
+#product-detail-pane > div
+{
+   margin-bottom: 6px;
+}
+
+#product-detail-pane label
+{
+   float: left;
+   font-weight: bold;
+   width: 9em;
+   text-align: right;
+   color: #ffdeae;
+   margin-right: 8px;
+}
+
+#boot-chooser-control
+{
+   width: 188px;
+}
+
+#color-chooser-control
+{
+   width: 138px;
+}
+
+#size-chooser-control
+{
+   width: 122px;
+}
+
+select + label
+{
+   margin-left: 18px;
+}

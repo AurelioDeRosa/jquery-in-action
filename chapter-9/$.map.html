@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.map Example</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var strings = ['1', '2', '3', '4', 'S', '6'];
+         var values = $.map(strings, function(value){
+            var result = Number(value);
+            return isNaN(result) ? null : result;
+         });
+         $.each(values, function(i, value) {
+            console.log(value.toString());
+         });
+      </script>
+   </body>
+</html>

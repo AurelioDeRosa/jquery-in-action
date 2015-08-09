@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <ul class="levels">
+         <li data-level="1" data-points="1" data-technologies="javascript node grunt">Level 1</li>
+         <li data-level="2" data-points="10" data-technologies="jquery requirejs">Level 2</li>
+         <li data-level="3" data-points="100" data-technologies="php composer">Level 3</li>
+         <li data-level="4" data-points="1000" data-technologies="javascript jquery backbone">Level 4</li>
+      </ul>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $.expr[':'].requiredLevel = $.expr.createPseudo(function (filterParam) {
+            return function (element, context, isXml) {
+               return element.getAttribute('data-level') > 2 && element.getAttribute('data-points') > 100;
+            };
+         });
+
+         $.expr[':'].pointsHigherThan = $.expr.createPseudo(function (filterParam) {
+            var points = parseInt(filterParam, 10);
+            return function (element, context, isXml) {
+               return element.getAttribute('data-points') > points;
+            };
+         });
+
+         var $levels = $('.levels li[data-technologies~="jquery"]');
+         var matchedLevels = [];
+         for (var i = 0; i < $levels.length; i++) {
+            if ($levels[i].getAttribute('data-level') > 2 && $levels[i].getAttribute('data-points') > 100) {
+               matchedLevels.push($levels[i]);
+            }
+         }
+         console.log(matchedLevels.length);
+
+         var $requiredLevels = $('.levels li:requiredLevel');
+         console.log($requiredLevels.length);
+
+         var $higherPointsLevels = $('.levels li:pointsHigherThan(50)');
+         console.log($higherPointsLevels.length);
+      </script>
+   </body>
+</html>

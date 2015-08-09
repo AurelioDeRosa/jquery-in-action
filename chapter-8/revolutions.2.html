@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Kepler's dilemma</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         img
+         {
+            position: absolute;
+         }
+
+         img[alt='moon']
+         {
+            top: 0;
+            left: 0;
+         }
+
+         img[alt='earth']
+         {
+            top: 128px;
+            left: 128px;
+         }
+
+         .box-animation
+         {
+            position: relative;
+         }
+
+         button
+         {
+            display: block;
+            margin: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <button id="button-animate">Animate</button>
+
+      <div class="box-animation">
+         <img src="images/moon.png" alt="moon"/>
+         <img src="images/earth.png" alt="earth"/>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#button-animate').click(function () {
+            $('img[alt="moon"]')
+                    .animate({left: '+=256'}, 2500)
+                    .animate({top: '+=256'}, 2500)
+                    .queue('fx', function() {
+                       $(this)
+                               .css({backgroundColor: 'black'})
+                               .dequeue('fx');
+                    })
+                    .animate({left: '-=256'}, 2500)
+                    .animate({top: '-=256'}, 2500, function() {
+                       $(this).css({backgroundColor: 'white'});
+                    });
+         });
+      </script>
+   </body>
+</html>

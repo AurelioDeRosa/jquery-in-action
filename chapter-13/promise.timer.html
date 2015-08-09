@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>A promise-based timer - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function timeout(milliseconds) {
+            var deferred = $.Deferred();
+            setTimeout(deferred.resolve, milliseconds);
+
+            return deferred.promise();
+         }
+
+         timeout(1000).done(function() {
+            alert('I waited for 1 second!');
+         });
+      </script>
+   </body>
+</html>

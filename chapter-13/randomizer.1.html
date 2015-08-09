@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Using Promises with Ajax requests version 1 - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css" />
+   </head>
+   <body>
+      <p>
+         The generated random numbers are <span id="number1"></span> and <span id="number2"></span>.
+         Their sum is <span id="sum"></span>
+      <p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var number1, number2;
+
+         function handler() {
+            var $sum = $('#sum');
+
+            if (number1 === null || number2 === null) {
+               $sum.text('An error has occurred, try again later.');
+            } else if (number1 !== undefined && number2 !== undefined) {
+               $sum.text(number1 + number2);
+            }
+         }
+
+         var promise1 = $.ajax('integer.php');
+         promise1.done(function(data, status, jqXHR) {
+            console.log(arguments);
+            number1 = (status === 'success') ? parseInt(data, 10) : null;
+            $('#number1').text(number1);
+            handler();
+         })
+         .fail(function() {
+            number1 = null;
+            handler();
+         });
+
+         var promise2 = $.ajax('integer.php');
+         promise2.done(function(data, status, jqXHR) {
+            number2 = (status === 'success') ? parseInt(data, 10) : null;
+            $('#number2').text(number2);
+            handler();
+         })
+         .fail(function() {
+            number2 = null;
+            handler();
+         });
+      </script>
+   </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Using $.extend() - Test 2</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         label
+         {
+            font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>$.extend() - Test 2</h1>
+      <div>
+        <label>target (before) =</label>
+        <span id="targetBeforeDisplay"></span>
+      </div>
+      <div>
+        <label>source1 =</label>
+        <span id="source1Display"></span>
+      </div>
+      <div>
+        <label>source2 =</label>
+        <span id="source2Display"></span>
+      </div>
+      <div>
+        <label>target (after) =</label>
+        <span id="targetAfterDisplay"></span>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function objectToString(obj) {
+            var string = '{';
+            for(var prop in obj) {
+               string += prop + ': ';
+               if (obj[prop] instanceof Object) {
+                  string += objectToString(obj[prop]);
+               } else {
+                  string += obj[prop];
+               }
+               string += ', ';
+            }
+            string = string.replace(/, $/, '');
+            string += '}';
+
+            return string;
+         }
+
+         // Sets the three objects
+         var target =  {a: 1, b: 2};
+         var source1 = {b: {foo: 'bar'}, c: 3};
+         var source2 = {b: {hello: 'world'}, d: 4};
+
+         // Shows the contents of the three objects
+         $('#targetBeforeDisplay').text(objectToString(target));
+         $('#source1Display').text(objectToString(source1));
+         $('#source2Display').text(objectToString(source2));
+
+         // Merges the three objects putting all the properties into the first
+         $.extend(true, target, source1, source2);
+
+         // Shows the content of the merged objects
+         $('#targetAfterDisplay').text(objectToString(target));
+      </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>QUnit - notrycatch</title>
+      <link rel="stylesheet" href="../css/qunit-1.18.0.css" />
+   </head>
+   <body>
+      <div id="qunit"></div>
+      <div id="qunit-fixture"></div>
+
+      <script src="../js/qunit-1.18.0.js"></script>
+      <script>
+         QUnit.test('Testing the notrycatch option', function(assert) {
+            assert.expect(1);
+            assert.strictEqual(add(2, 2), 4, 'The sum of 2 plus 2 is equal to 4');
+         });
+      </script>
+   </body>
+</html>

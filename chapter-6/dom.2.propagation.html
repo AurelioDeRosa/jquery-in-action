@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>DOM Level 2 Propagation - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         img
+         {
+            display: block;
+            margin: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="greatgrandpa">
+         <div id="grandpa">
+            <div id="pops">
+               <img id="example" src="images/example.jpg"  alt="A bolt of lightning" />
+            </div>
+         </div>
+      </div>
+
+      <p>The output is printed on the console</p>
+
+      <script>
+         function formatDate(date) {
+            return (date.getHours() < 10 ? '0' : '') + date.getHours() +
+                    ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() +
+                    ':' + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds() +
+                    '.' + (date.getMilliseconds() < 10 ? '00' : (date.getMilliseconds() < 100 ? '0' : '')) +
+                    date.getMilliseconds();
+         }
+
+         var elements = document.getElementsByTagName('*');
+         for(var i = 0; i < elements.length; i++) {
+            (function(current) {
+               current.addEventListener('click', function(event) {
+                  console.log(
+                          'At ' + formatDate(new Date()) + ' Capture for ' + current.tagName + '#'+ current.id +
+                          ' target is ' + event.target.tagName + '#' + event.target.id
+                  );
+               }, true);
+               current.addEventListener('click', function(event) {
+                  console.log(
+                          'At ' + formatDate(new Date()) + ' Bubble for ' + current.tagName + '#'+ current.id +
+                          ' target is ' + event.target.tagName + '#' + event.target.id
+                  );
+               }, false);
+            })(elements[i]);
+         }
+      </script>
+   </body>
+</html>

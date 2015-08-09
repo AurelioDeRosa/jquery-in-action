@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Radio Group Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         #result
+         {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 0 0.5em;
+         }
+
+         #which-button
+         {
+            margin-top: 1em;
+         }
+      </style>
+   </head>
+   <body>
+      <div>
+         <span>What is your answer?</span>
+         <label>
+            <input type="radio" name="some-radio-group" value="yes" checked="checked"/> Yes
+         </label>
+         <label>
+            <input type="radio" name="some-radio-group" value="no"/> No
+         </label>
+         <label>
+            <input type="radio" name="some-radio-group" value="maybe"/> Maybe
+         </label>
+         <label>
+            <input type="radio" name="some-radio-group" value="I dunno"/> I dunno
+         </label>
+      </div>
+      <button id="which-button">Click me!</button>
+
+      <p>The radio element with value <span id="result"></span> is checked.</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         jQuery('#which-button').click(function () {
+            var checkedValue = jQuery('input:radio[name="some-radio-group"]:checked').val();
+            jQuery('#result').text(checkedValue);
+         }).click();
+      </script>
+   </body>
+</html>

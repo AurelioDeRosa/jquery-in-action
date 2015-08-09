@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Move and Copy Lab Page - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         #source-pane img
+         {
+            margin-bottom: 1em;
+         }
+
+         .target
+         {
+            border: 1px solid maroon;
+            background-color: #ffffcc;
+            margin-bottom: 1em;
+         }
+
+         #controls div
+         {
+            margin-bottom: 0.5em;
+         }
+
+         button
+         {
+            margin-top: 10px;
+         }
+
+         #button-restore
+         {
+            display: none;
+         }
+
+         .done input[type=checkbox],
+         .done #button-execute
+         {
+            display: none;
+         }
+
+         #button-restore
+         {
+            display: inline;
+         }
+      </style>
+   </head>
+
+   <body>
+
+      <h1 class="header">jQuery Move and Copy Lab Page</h1>
+
+      <div id="source-pane" class="box-small">
+         <h2>Sources</h2>
+         <div>
+            <input type="checkbox" name="sources"/><br />
+            <img src="images/source1.png" alt="source 1" />
+         </div>
+
+         <div>
+            <input type="checkbox" name="sources"/><br />
+            <img src="images/source2.png" alt="source 2" />
+         </div>
+
+         <div>
+            <input type="checkbox" name="sources"/><br />
+            <img src="images/source3.png" alt="source 3" />
+         </div>
+      </div>
+
+      <div class="box-small">
+         <h2>Target Areas</h2>
+
+         <div>
+            <div id="target-pane">
+               <div id="target1" class="target">
+                  <label><input type="checkbox" name="targets"/> Target 1</label>
+               </div>
+
+               <div id="target2" class="target">
+                  <label><input type="checkbox" name="targets"/> Target 2</label>
+               </div>
+
+               <div id="target3" class="target">
+                  <label><input type="checkbox" name="targets"/> Target 3</label>
+               </div>
+
+               <div>
+                  <span>Operation:</span><br />
+                  <label><input type="radio" name="operations" value="append" checked="checked"/> append</label>
+                  <label><input type="radio" name="operations" value="prepend"/> prepend</label>
+                  <label><input type="radio" name="operations" value="before"/> before</label>
+                  <label><input type="radio" name="operations" value="after"/> after</label>
+               </div>
+               <div>
+                  <span>Clone?:</span><br />
+                  <label><input type="radio" name="clone" value="no" checked="checked"/> no</label>
+                  <label><input type="radio" name="clone" value="yes"/> yes</label>
+               </div>
+            </div>
+
+            <div>
+               <button id="button-execute">Execute</button>
+               <button id="button-restore">Restore</button>
+            </div>
+         </div>
+      </div>
+
+      <div class="footer">
+         <p>
+            jQuery Selectors Lab Page - jQuery in Action, 3rd edition<br/>
+            Code by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa
+         </p>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $sourcePaneHtml = $('#source-pane').html();
+         var targetPaneHtml = $('#target-pane').html();
+         $('#button-restore').click(function () {
+            $('#source-pane').html($sourcePaneHtml);
+            $('#target-pane').html(targetPaneHtml);
+         });
+
+         $('#button-execute').click(function () {
+            $('input:radio', '#target-pane').prop('disabled', true);
+            var $sources = $('input:checked ~ img', '#source-pane');
+
+            if ($('[name=clone]:checked').val() === 'yes') {
+               $sources = $sources.clone();
+            }
+
+            var $targets = $('input:checkbox:checked', '#target-pane').parents('.target');
+            var operation = $('[name=operations]:checked').val();
+            $targets[operation]($sources);
+         });
+      </script>
+   </body>
+</html>

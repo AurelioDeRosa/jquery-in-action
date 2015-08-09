@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>$.unique Example</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <div class="black">foo</div>
+      <div class="red">bar</div>
+      <div class="black">baz</div>
+      <div class="red">don</div>
+      <div class="red">wow</div>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var blackDivs = $('.black').get();
+         console.log('The black divs are: ' + blackDivs.length);
+         var allDivs = blackDivs.concat($('div').get());
+         console.log('The incremented divs are: ' + allDivs.length);
+         var uniqueDivs = $.unique(allDivs);
+         console.log('The unique divs are: ' + uniqueDivs.length);
+      </script>
+   </body>
+</html>

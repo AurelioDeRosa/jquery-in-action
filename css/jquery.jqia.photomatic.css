@@ -1,0 +1,26 @@
+#thumbnails-pane
+{
+   float: left;
+   width: 180px;
+   height: 460px;
+   overflow: auto;
+   border: 2px ridge #00457b;
+   margin-right: 10px;
+}
+
+#button-bar
+{
+   clear: both;
+   text-align: center;
+}
+
+img
+{
+   cursor: pointer;
+}
+
+#photo-display
+{
+   border: 1px solid black;
+   padding: 16px 16px 24px 16px;
+}

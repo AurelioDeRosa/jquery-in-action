@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Testing functions</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function multiplier(collection, factor, customFunction) {
+            // Support function that has the core calculation
+            // dealing with variable parameters
+            function calc(value) {
+               return $.isFunction(factor) ?
+                     factor(value) :
+                     $.isFunction(customFunction) ?
+                     customFunction(value * factor) :
+                     value * factor;
+            }
+
+            var result = null;
+
+            if (factor === undefined && customFunction === undefined) {
+               factor = 1;
+            }
+
+            if ($.isArray(collection)) {
+               result = $.map(collection, function(value) {
+                  if ($.isNumeric(value)) {
+                     return calc(value);
+                  }
+               });
+            } else if ($.isPlainObject(collection)) {
+               result = {};
+               for(var prop in collection) {
+                  if ($.isNumeric(collection[prop])) {
+                     result[prop] = calc(collection[prop]);
+                  }
+               }
+            }
+
+            return result;
+         }
+
+         var obj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            foo: 'baz'
+         };
+         var arr = [1, 2, 3, 'baz'];
+         var factor = 2;
+
+         // The pre-defined factor used for the tests
+         console.log('factor:', factor);
+
+         // The pre-defined object used for the tests
+         console.log('obj:', obj);
+         // Call the function with one argument that is an object
+         console.log('multiplier(obj):', multiplier(obj));
+         // Call the function with an object as its first argument and
+         // without the third argument
+         console.log('multiplier(obj, factor):', multiplier(obj, factor));
+         // Use the sqrt method of the Math object as the third argument
+         console.log('multiplier(obj, factor, Math.sqrt):', multiplier(obj, factor, Math.sqrt));
+         // Use the sqrt method of the Math object as the second argument
+         console.log('multiplier(obj, Math.sqrt):', multiplier(obj, Math.sqrt));
+
+         // The pre-defined array used for the tests
+         console.log('arr:', arr);
+         // Call the function with one argument that is an array
+         console.log('multiplier(arr):', multiplier(arr));
+         // Call the function with an array as its first argument and
+         // without the third argument
+         console.log('multiplier(arr, factor):', multiplier(arr, factor));
+         // Use the sqrt method of the Math object as the third argument
+         console.log('multiplier(arr, factor, Math.sqrt):', multiplier(arr, factor, Math.sqrt));
+         // Use the sqrt method of the Math object as the second argument
+         console.log('multiplier(arr, Math.sqrt):', multiplier(arr, Math.sqrt));
+
+         // Call the function without arguments
+         console.log('multiplier():', multiplier());
+      </script>
+   </body>
+</html>

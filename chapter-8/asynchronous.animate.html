@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Testing the asynchrony of the animate() method</title>
+      <link rel="stylesheet" href="../css/main.css" />
+      <style>
+         div
+         {
+            padding: 2em;
+            background-color: #BBBBBB;
+            display: inline-block;
+            position: relative;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="test-subject">This is a div</div>
+
+      <p>The output is partially printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         console.log(1);
+         $('#test-subject').animate({left: '+=256'}, 5000);
+         console.log(2);
+      </script>
+   </body>
+</html>

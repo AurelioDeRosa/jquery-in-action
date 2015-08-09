@@ -1,0 +1,32 @@
+.module
+{
+   width: 340px;
+   margin: 0 auto;
+   border: 1px solid #000000;
+}
+
+.module .caption
+{
+   background: #71A9D6;
+   background: linear-gradient(to bottom, #71A9D6, #E4E4E4);
+   padding: 0.2em 0.5em;
+}
+
+.module .caption h1
+{
+   float: left;
+   margin: 0;
+}
+
+.module .caption .icon-roll
+{
+   float: right;
+   cursor: pointer;
+   font-size: 2em;
+   font-weight: bold;
+}
+
+.module .body
+{
+   padding: 0.5em;
+}

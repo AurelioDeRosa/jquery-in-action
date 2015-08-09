@@ -1,0 +1,9 @@
+<option value="">- choose size -</option>
+<option value="9d">9 D</option>
+<option value="9ee">9 EE</option>
+<option value="95d">9&frac12; D</option>
+<option value="95ee">9&frac12; EE</option>
+<option value="95eee">9&frac12; EEE</option>
+<option value="10ee">10 EE</option>
+<option value="10eee">10 EEE</option>
+<option value="13e">13 E</option>

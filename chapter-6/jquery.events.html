@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Events in jQuery Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         img
+         {
+            display: block;
+            margin: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <img id="example" src="images/example.jpg" alt="A bolt of lightning"/>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function formatDate(date) {
+            return (date.getHours() < 10 ? '0' : '') + date.getHours() +
+                    ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() +
+                    ':' + (date.getSeconds() < 10 ? '0' : '') + date.getSeconds() +
+                    '.' + (date.getMilliseconds() < 10 ? '00' : (date.getMilliseconds() < 100 ? '0' : '')) +
+                    date.getMilliseconds();
+         }
+
+         $('#example')
+                 .on('click', function (event) {
+                    console.log('At ' + formatDate(new Date()) + ' BOOM once!');
+                 })
+                 .on('click', function (event) {
+                    console.log('At ' + formatDate(new Date()) + ' BOOM twice!');
+                 })
+                 .on('click', function (event) {
+                    console.log('At ' + formatDate(new Date()) + ' BOOM thrice!');
+                 });
+      </script>
+   </body>
+</html>

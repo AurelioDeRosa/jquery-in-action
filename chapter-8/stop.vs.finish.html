@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>stop() vs finish()</title>
+      <link rel="stylesheet" href="../css/main.css" />
+      <style>
+         .room
+         {
+            border: 1px solid #000000;
+            width: 400px;
+            height: 200px;
+         }
+
+         .square
+         {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            background-color: #EF1715;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="room">
+         <div class="square"></div>
+      </div>
+
+      <button id="animate">Animate!</button>
+      <button id="stop">Stop</button>
+      <button id="finish">Finish</button>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var $square = $('.square');
+
+         $('#animate').click(function () {
+            $square.css({
+               top: 0,
+               left: 0
+            });
+
+            $square
+                    .animate({ top: 200 - 24 }, 2000)
+                    .animate({ left: 400 - 24 }, 2000)
+                    .animate({ top: 0 }, 2000);
+         });
+
+         $('#stop').click(function () {
+            $square.stop(true, true);
+         });
+
+         $('#finish').click(function () {
+            $square.finish();
+         });
+      </script>
+   </body>
+</html>

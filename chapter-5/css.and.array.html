@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Working with the css() method and arrays - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         div
+         {
+            font-size: 20px;
+            color: #CCCCCC;
+         }
+
+         .special
+         {
+            font-size: 24px;
+            color: #000000;
+            text-decoration: underline;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Retrieving the computed style using css()</h1>
+
+      <div class="special">
+         This is a text
+      </div>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         var styles = $('.special').css([
+            'font-size', 'color', 'text-decoration'
+         ]);
+
+         for(var property in styles) {
+            console.log(property + ': ' + styles[property]);
+         }
+      </script>
+   </body>
+</html>

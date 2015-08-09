@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>jQuery Operations Lab Page - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         #results-pane
+         {
+            margin-top: 1em;
+         }
+
+         #resulting-elements-count
+         {
+            font-weight: bold;
+         }
+
+         #operation
+         {
+            height: 4em;
+         }
+
+         #button-execute,
+         #button-restore
+         {
+            vertical-align: top;
+         }
+
+         #frame
+         {
+            width: 100%;
+            height: 660px;
+            border: none;
+         }
+
+         #sample-dom-source
+         {
+            max-height: 40em;
+         }
+      </style>
+   </head>
+
+   <body>
+      <h1 class="header">jQuery Operations Lab Page</h1>
+
+      <div id="operation-pane" class="box-small">
+         <h2>Operation</h2>
+         <p>
+            Type any jQuery expression that results in a jQuery set into the text field below and click the
+            Execute button.
+         </p>
+         <form id="form-selector" action="#">
+            <label for="operation">Operation:</label><br />
+            <textarea id="operation"></textarea>
+
+            <input type="submit" id="button-execute" value="Execute" />
+            <input type="reset" id="button-restore" value="Restore" />
+         </form>
+
+         <div id="results-pane">
+            <span id="resulting-elements-count">0</span> matching element(s):
+            <div id="resulting-elements"></div>
+         </div>
+
+      </div>
+
+      <div id="sample-pane" class="box-small">
+         <h2>DOM Sample</h2>
+         <iframe id="frame" name="frame" src="dom.sample.page.html" seamless="seamless"
+                 sandbox="allow-same-origin allow-scripts"></iframe>
+      </div>
+
+      <div>
+         <h2>DOM Sample Code</h2>
+         <pre id="sample-dom-source">
+&lt;span&gt;Some images:&lt;/span&gt;
+&lt;div&gt;
+   &lt;img src="../images/image.1.jpg" id="hibiscus" alt="Hibiscus"/&gt;
+   &lt;img src="../images/image.2.jpg" id="little-bear" title="A dog named Little Bear"/&gt;
+   &lt;img src="../images/image.3.jpg" id="verbena" alt="Verbena"/&gt;
+   &lt;img src="../images/image.4.jpg" id="cozmo" title="A puppy named Cozmo"/&gt;
+   &lt;img src="../images/image.5.jpg" id="tiger-lily" alt="Tiger Lily"/&gt;
+   &lt;img src="../images/image.6.jpg" id="coffee-pot"/&gt;
+&lt;/div&gt;
+
+&lt;div id="some-div"&gt;This is a &amp;lt;div&amp;gt; with an id of &lt;code&gt;some-div&lt;/code&gt;&lt;/div&gt;
+
+&lt;h2&gt;Hello, I'm a &amp;lt;h2&amp;gt; element&lt;/h2&gt;
+&lt;p&gt;
+   I'm a paragraph, nice to meet you.
+&lt;/p&gt;
+
+&lt;ul class="my-list"&gt;
+   &lt;li&gt;
+      &lt;a href="http://jquery.com"&gt;jQuery website&lt;/a&gt;
+      &lt;ul&gt;
+         &lt;li&gt;&lt;a href="#css1"&gt;CSS1&lt;/a&gt;&lt;/li&gt;
+         &lt;li&gt;&lt;a href="#css2"&gt;CSS2&lt;/a&gt;&lt;/li&gt;
+         &lt;li&gt;&lt;a href="#css3"&gt;CSS3&lt;/a&gt;&lt;/li&gt;
+         &lt;li&gt;Basic XPath&lt;/li&gt;
+      &lt;/ul&gt;
+   &lt;/li&gt;
+   &lt;li&gt;
+      jQuery also supports
+      &lt;ul&gt;
+         &lt;li&gt;Custom selectors&lt;/li&gt;
+         &lt;li&gt;Form selectors&lt;/li&gt;
+      &lt;/ul&gt;
+   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table id="languages"&gt;
+   &lt;thead&gt;
+   &lt;tr&gt;
+      &lt;th&gt;Language&lt;/th&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+      &lt;th&gt;Invented&lt;/th&gt;
+   &lt;/tr&gt;
+   &lt;/thead&gt;
+   &lt;tbody&gt;
+   &lt;tr&gt;
+      &lt;td&gt;Java&lt;/td&gt;
+      &lt;td&gt;Static&lt;/td&gt;
+      &lt;td&gt;1995&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;Ruby&lt;/td&gt;
+      &lt;td&gt;Dynamic&lt;/td&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;Smalltalk&lt;/td&gt;
+      &lt;td&gt;Dynamic&lt;/td&gt;
+      &lt;td&gt;1972&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;C++&lt;/td&gt;
+      &lt;td&gt;Static&lt;/td&gt;
+      &lt;td&gt;1983&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;form id="form-fake" action="#"&gt;
+   &lt;div&gt;
+      &lt;label for="text-field"&gt;Text:&lt;/label&gt;
+      &lt;input type="text" id="text-field" name="text-field"/&gt;
+   &lt;/div&gt;
+   &lt;div&gt;
+      &lt;span&gt;Radio group:&lt;/span&gt;
+      &lt;label&gt;&lt;input type="radio" name="radio-group" id="radio-a" value="A"/&gt; A&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="radio-group" id="radio-b" value="B" checked="checked"/&gt; B&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="radio-group" id="radio-c" value="C"/&gt; C&lt;/label&gt;
+   &lt;/div&gt;
+   &lt;div&gt;
+      &lt;span&gt;Checkboxes:&lt;/span&gt;
+      &lt;label&gt;&lt;input type="checkbox" name="checkboxes" id="checkbox-1" value="1"/&gt; 1&lt;/label&gt;
+      &lt;label&gt;&lt;input type="checkbox" name="checkboxes" id="checkbox-2" value="2"/&gt; 2&lt;/label&gt;
+      &lt;label&gt;&lt;input type="checkbox" name="checkboxes" id="checkbox-3" value="3" checked="checked"/&gt; 3&lt;/label&gt;
+      &lt;label&gt;&lt;input type="checkbox" name="checkboxes" id="checkbox-4" value="4"/&gt; 4&lt;/label&gt;
+   &lt;/div&gt;
+   &lt;input type="submit" id="button-submit" value="Submit" /&gt;
+&lt;/form&gt;
+         </pre>
+      </div>
+
+      <div class="footer">
+         <p>
+            jQuery Selectors Lab Page - jQuery in Action, 3rd edition<br/>
+            Code by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa
+         </p>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#form-selector').submit(function(event) {
+            event.preventDefault();
+
+            $('#resulting-elements').html('');
+            var operation = $.trim($('#operation').val());
+            if (operation.length == 0) {
+               return false;
+            }
+
+            var $set = frame.perform(operation);
+            $('#resulting-elements-count').text($set.length);
+            $set.each(function () {
+               $('#resulting-elements').append(
+                  '<div>' + this.tagName + (this.id ? '#' + this.id : '') + '</div>'
+               );
+            });
+         });
+
+         $('#button-restore').click(function () {
+            $('#frame').attr('src', 'dom.sample.page.html');
+            $('#resulting-elements-count').text(0);
+            $('#resulting-elements').empty();
+         });
+      </script>
+   </body>
+</html>

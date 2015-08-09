@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>The data parameter of trigger() - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <button id="foo">Click</button>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#foo').on('click', function(event, par1, par2, par3){
+            console.log(par1, par2, par3);
+         });
+         $('#foo').trigger('click', 1, 2, 3);
+         $('#foo').trigger('click', [1, 2, 3]);
+      </script>
+   </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Attributes and Properties Example - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <input type="checkbox" id="book" name="book" title="Check this!" book="jQuery in Action" />
+
+      <p>The output is printed on the console</p>
+
+      <script>
+         var checkbox = document.getElementById('book');
+         console.log(checkbox.getAttribute('title') === checkbox.title);
+
+         checkbox.title = 'New title!';
+         console.log(checkbox.getAttribute('title') === checkbox.title);
+
+         checkbox.setAttribute('title', 'Another title!');
+         console.log(checkbox.getAttribute('title') === checkbox.title);
+
+         console.log(checkbox.getAttribute('checked') === checkbox.checked);
+      </script>
+   </body>
+</html>

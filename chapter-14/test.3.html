@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>QUnit - Test 3</title>
+      <link rel="stylesheet" href="../css/qunit-1.18.0.css" />
+   </head>
+   <body>
+      <div id="qunit"></div>
+      <div id="qunit-fixture"></div>
+
+      <script>
+         function Person(fullName) {
+            this.fullName = fullName;
+         }
+
+         var human = {
+            fullName: null
+         };
+      </script>
+      <script src="../js/qunit-1.18.0.js"></script>
+      <script>
+         QUnit.test('Testing propEqual() and deepEqual()', function(assert) {
+            assert.expect(2);
+
+            var person = new Person('John Doe');
+            human.fullName = 'John Doe';
+
+            assert.propEqual(person, human, 'Passes. Same properties and values');
+            assert.deepEqual(person, human, 'Fails. Same properties and values, but different prototype');
+         });
+      </script>
+   </body>
+</html>

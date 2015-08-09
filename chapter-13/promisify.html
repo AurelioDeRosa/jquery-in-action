@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Promisifying a jQuery collection - jQuery in Action, 3rd edition</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         .square
+         {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            background-color: #1E39BC;
+            margin: 10px 0;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="square1" class="square"></div>
+      <div id="square2" class="square"></div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         $('#square1').animate({left: 500}, 1500);
+         $('#square2').animate({left: 500}, 3000);
+         $('.square')
+                 .promise()
+                 .done(function() {
+                    alert('The animations are completed');
+                 });
+      </script>
+   </body>
+</html>

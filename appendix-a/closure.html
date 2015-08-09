@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Closure Example</title>
+   </head>
+   <body>
+      <div id="display"></div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         function timer() {
+            var local = 1;
+            window.setInterval(
+               function() {
+                  $('#display').append('<div>At ' + new Date() + ' local=' + local + '</div>');
+                  local++;
+               },
+               2000
+            );
+         }
+
+         timer();
+      </script>
+   </body>
+</html>

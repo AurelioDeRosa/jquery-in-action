@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Listing 10.3</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <div id="elem"></div>
+
+      <script>
+         var xhr;
+         if (window.ActiveXObject) {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+         } else if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+         } else {
+            throw new Error('Ajax is not supported by this browser');
+         }
+
+         xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+               if (this.status >= 200 && this.status < 300) {
+                  document.getElementById('elem').innerHTML = this.responseText;
+               }
+            }
+         };
+
+         xhr.open('GET', 'some-resource');
+         xhr.send();
+      </script>
+   </body>
+</html>

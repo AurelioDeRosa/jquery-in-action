@@ -1,0 +1,129 @@
+<!DOCTYPE>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Dom sample page</title>
+      <link rel="stylesheet" href="../css/main.css"/>
+      <style>
+         .found-element
+         {
+            border: 2px solid #000000;
+            background-color: #DDDDDD;
+         }
+
+         .red-border
+         {
+            border: 2px solid #E80C0C;
+         }
+
+         .opaque
+         {
+            opacity: 0.5;
+         }
+      </style>
+   </head>
+
+   <body>
+      <div id="sample-dom">
+         <span>Some images:</span>
+         <div>
+            <img src="../images/image.1.jpg" id="hibiscus" alt="Hibiscus"/>
+            <img src="../images/image.2.jpg" id="little-bear" title="A dog named Little Bear"/>
+            <img src="../images/image.3.jpg" id="verbena" alt="Verbena"/>
+            <img src="../images/image.4.jpg" id="cozmo" title="A puppy named Cozmo"/>
+            <img src="../images/image.5.jpg" id="tiger-lily" alt="Tiger Lily"/>
+            <img src="../images/image.6.jpg" id="coffee-pot"/>
+         </div>
+
+         <div id="some-div">This is a &lt;div&gt; with an id of <code>some-div</code></div>
+
+         <h2>Hello, I'm a &lt;h2&gt; element</h2>
+         <p>
+            I'm a paragraph, nice to meet you.
+         </p>
+
+         <ul class="my-list">
+            <li>
+               <a href="http://jquery.com">jQuery website</a>
+               <ul>
+                  <li><a href="#css1">CSS1</a></li>
+                  <li><a href="#css2">CSS2</a></li>
+                  <li><a href="#css3">CSS3</a></li>
+                  <li>Basic XPath</li>
+               </ul>
+            </li>
+            <li>
+               jQuery also supports
+               <ul>
+                  <li>Custom selectors</li>
+                  <li>Form selectors</li>
+               </ul>
+            </li>
+         </ul>
+
+         <table id="languages">
+            <thead>
+            <tr>
+               <th>Language</th>
+               <th>Type</th>
+               <th>Invented</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td>Java</td>
+               <td>Static</td>
+               <td>1995</td>
+            </tr>
+            <tr>
+               <td>Ruby</td>
+               <td>Dynamic</td>
+               <td>1993</td>
+            </tr>
+            <tr>
+               <td>Smalltalk</td>
+               <td>Dynamic</td>
+               <td>1972</td>
+            </tr>
+            <tr>
+               <td>C++</td>
+               <td>Static</td>
+               <td>1983</td>
+            </tr>
+            </tbody>
+         </table>
+
+         <form id="form-fake" action="#">
+            <div>
+               <label for="text-field">Text:</label>
+               <input type="text" id="text-field" name="text-field"/>
+            </div>
+            <div>
+               <span>Radio group:</span>
+               <label><input type="radio" name="radio-group" id="radio-a" value="A"/> A</label>
+               <label><input type="radio" name="radio-group" id="radio-b" value="B" checked="checked"/> B</label>
+               <label><input type="radio" name="radio-group" id="radio-c" value="C"/> C</label>
+            </div>
+            <div>
+               <span>Checkboxes:</span>
+               <label><input type="checkbox" name="checkboxes" id="checkbox-1" value="1"/> 1</label>
+               <label><input type="checkbox" name="checkboxes" id="checkbox-2" value="2"/> 2</label>
+               <label><input type="checkbox" name="checkboxes" id="checkbox-3" value="3" checked="checked"/> 3</label>
+               <label><input type="checkbox" name="checkboxes" id="checkbox-4" value="4"/> 4</label>
+            </div>
+            <input type="submit" id="button-submit" value="Submit" />
+         </form>
+      </div>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+
+         function perform(operation) {
+            $('*').removeClass('found-element');
+            eval('var $set=' + operation + ';');
+            $set.addClass('found-element');
+            return $set;
+         }
+      </script>
+   </body>
+</html>

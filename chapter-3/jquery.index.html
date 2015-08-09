@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta charset="utf-8" />
+     <title>jQuery in Action, third edition</title>
+     <meta name="description" content="Working with the index() method" />
+     <link rel="stylesheet" href="../css/main.css"/>
+   </head>
+   <body>
+      <ul id="main-menu">
+         <li id="home-link"><a href="/">Homepage</a></li>
+         <li id="projects-link"><a href="/projects">Projects</a></li>
+         <li id="blog-link"><a href="/blog">Blog</a></li>
+         <li id="about-link"><a href="/about">About</a></li>
+      </ul>
+
+      <p>The output is printed on the console</p>
+
+      <script src="../js/jquery-1.11.3.min.js"></script>
+      <script>
+         // First case: No arguments
+         console.log($('#blog-link').index());
+
+         // Second case: The argument is a jQuery set
+         console.log($('#main-menu > li').index($('#blog-link')));
+
+         // Third case: The argument is a DOM Element
+         console.log($('#main-menu > li').index(document.getElementById('blog-link')));
+
+         // Fourth case: The argument is a selector
+         console.log($('#blog-link').index('#main-menu > li'));
+      </script>
+   </body>
+</html>
